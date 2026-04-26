@@ -68,4 +68,4 @@ Deploy Storage rules when ready:
 firebase deploy --only storage
 ```
 
-The intended custom domain is `resexmachina.xyz`. Connect it later in Firebase Hosting after the project is deployed.
+The intended custom domain is `resfactae.xyz`, with `romeo.resfactae.xyz` opening the MEOWS viewer. Connect both in Firebase Hosting after the project is deployed.

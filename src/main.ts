@@ -18,31 +18,38 @@ if (!appElement) {
 }
 
 const app = appElement
+const hostname = window.location.hostname.toLowerCase()
+const shouldRedirectToRomeo =
+  hostname === 'resfactae.xyz' && window.location.pathname === '/'
+
+if (shouldRedirectToRomeo) {
+  window.location.replace('https://romeo.resfactae.xyz/')
+}
 
 const sections: Section[] = [
   {
     route: 'meows',
     number: 'I.',
-    title: 'MEOWS EX MACHINA',
-    description: 'Romeo, shown through the device',
+    title: 'Romeo ex machina',
+    description: 'Romeo ex machina. A photo viewer of my cat, Romeo.',
   },
   {
     route: 'excorium',
     number: 'II.',
-    title: 'EXCORIUM',
+    title: 'Excorium',
     description: 'leather, skin, surface',
   },
   {
     route: 'unexposd',
     number: 'III.',
-    title: 'UNEXPOSD',
+    title: 'unexposd',
     description: 'images not yet fixed',
   },
   {
     route: 'vitrify',
     number: 'IV.',
-    title: 'VITRIFY',
-    description: 'tools for porcelain makers',
+    title: 'Vitrify App',
+    description: 'tools for ceramists',
   },
 ]
 
@@ -51,9 +58,8 @@ let teardownRoute: (() => void) | null = null
 
 function currentRoute(): Route {
   const path = window.location.pathname.replace(/\/+$/, '') || '/'
-  const host = window.location.hostname.toLowerCase()
 
-  if (host === 'romeo.resexmachina.xyz' && path === '/') {
+  if (hostname === 'romeo.resfactae.xyz' && path === '/') {
     return 'meows'
   }
 
@@ -91,14 +97,14 @@ function render() {
 }
 
 function renderHome() {
-  document.title = 'RES EX MACHINA'
+  document.title = 'Res factae'
   app.innerHTML = `
     <main class="home-shell" aria-labelledby="site-title">
       <section class="cabinet-label" aria-describedby="site-subtitle">
         <div class="label-rule" aria-hidden="true"></div>
-        <h1 id="site-title">RES EX MACHINA</h1>
+        <h1 id="site-title">Res factae</h1>
         <p id="site-subtitle" class="subtitle">
-          A personal cabinet of things shown through the device.
+          A show of things I make.
         </p>
         <nav class="site-index" aria-label="Cabinet index">
           <ol>
@@ -132,11 +138,11 @@ function renderPlaceholder(route: Exclude<Route, 'home' | 'meows'>) {
     return
   }
 
-  document.title = `${section.title} | RES EX MACHINA`
+  document.title = `${section.title} | Res factae`
   app.innerHTML = `
     <main class="placeholder-shell" aria-labelledby="placeholder-title">
       <article class="placeholder-label">
-        <a class="home-link" href="/">RES EX MACHINA</a>
+        <a class="home-link" href="/">Res factae</a>
         <p class="placeholder-number">${section.number}</p>
         <h1 id="placeholder-title">${section.title}</h1>
         <p>${section.description}</p>
@@ -147,12 +153,12 @@ function renderPlaceholder(route: Exclude<Route, 'home' | 'meows'>) {
 }
 
 function renderMeows() {
-  document.title = 'MEOWS EX MACHINA | RES EX MACHINA'
+  document.title = 'Romeo ex machina | Res factae'
   app.innerHTML = `
     <main
       class="meows-viewer"
       tabindex="0"
-      aria-label="MEOWS EX MACHINA. Romeo photo viewer."
+      aria-label="Romeo ex machina. Romeo photo viewer."
     >
       <img
         class="meows-image"
@@ -362,6 +368,8 @@ document.addEventListener('click', (event) => {
   render()
 })
 
-window.addEventListener('popstate', render)
+if (!shouldRedirectToRomeo) {
+  window.addEventListener('popstate', render)
 
-render()
+  render()
+}
