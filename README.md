@@ -1,6 +1,6 @@
 # RES EX MACHINA
 
-A personal cabinet of things shown through the device.
+A show of things I make.
 
 This is a lightweight public website built with Vite, TypeScript, plain CSS, Firebase Hosting, and Firebase Storage. It does not use Flutter, React, authentication, a service worker, or an upload/admin UI.
 
